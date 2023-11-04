@@ -6,15 +6,26 @@ import openai
 
 import openai
 import streamlit as st
+from chunkPDF import extract_pdf_text
 
 st.title("AInonymous")
+
+system_prompt="""You are a helpful assistant named Gary, your task is to review a series of\
+documents returned by a search system and answer the user's question only based on these documents.\
+The first user query is delimited by triple asterisks\.
+The reference documents in that message are delimited with triple backticks.\
+A user might ask follow up questions.
+"""
 
 
 # add a selectbox to the sidebar
 st.sidebar.multiselect("Entity list", ["email", "phone",'location'], ["email", "phone","location"])
 # add 
 # add a n upload pdf button to the sidebar
-uploaded_file = st.sidebar.file_uploader("Choose a PDF file", accept_multiple_files=True)
+uploaded_file = st.sidebar.file_uploader("Choose a PDF file", accept_multiple_files=False)
+if uploaded_file is not None:
+    _,chunks = extract_pdf_text(uploaded_file)
+    st.write(chunks)
 
 with open("secret.txt") as f:
     # st.write("Using OpenAI API key:", f.read())
