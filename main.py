@@ -7,6 +7,7 @@ import openai
 import openai
 import streamlit as st
 from utils import extract_pdf_text,augment_prompt
+from text_effects import highlight_phrases_in_paragraph
 
 st.title("AInonymous")
 
@@ -30,7 +31,7 @@ if st.sidebar.button("Clear"):
 uploaded_file = st.sidebar.file_uploader("Choose a PDF file", accept_multiple_files=False)
 if uploaded_file is not None:
     _,chunks = extract_pdf_text(uploaded_file)
-    st.write(chunks)
+    # st.write(chunks)
 
 with open("hack_secret.txt") as f:
     # st.write("Using OpenAI API key:", f.read())
@@ -79,10 +80,7 @@ if prompt := st.chat_input("What is up?"):
 
 # # print references:
 # # add a collapsible section to show reference documents
-# if len(st.session_state.chat_hist)>0:
-#     with st.expander("References"):
-#         st.markdown("Reference documents:")
-#         for i,doc in enumerate(st.session_state.chat_hist[0]['ref_docs']):
-#             st.write(f"Reference {i+1}")
-#             st.write("-"*20)
-#             st.write(doc)
+if len(st.session_state.chat_hist)>0:
+    with st.expander("References"):
+        highlighted_Text = highlight_phrases_in_paragraph(chunks[0],{"ExxonMobil":"pale_blue","Proposal":"pale_red"})
+        st.markdown(highlighted_Text)

@@ -1,5 +1,6 @@
 import re
 from collections import defaultdict
+from text_effects import highlight_phrases_in_paragraph
 import PyPDF2
 
 
