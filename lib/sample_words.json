@@ -1,0 +1,51 @@
+[
+    {
+      "entity_group": "location",
+      "score": 0.9911460280418396,
+      "word": "Houston",
+      "start": 34,
+      "end": 41
+    },
+    {
+      "entity_group": "location",
+      "score": 0.9626540541648865,
+      "word": "Houston",
+      "start": 44,
+      "end": 51
+    },
+    {
+      "entity_group": "Person_Name",
+      "score": 0.9794477224349976,
+      "word": "Jack Snyder",
+      "start": 118,
+      "end": 129
+    },
+    {
+      "entity_group": "location",
+      "score": 0.9923823475837708,
+      "word": "Dallas",
+      "start": 135,
+      "end": 141
+    },
+    {
+      "entity_group": "Organization_Name",
+      "score": 0.9673057794570923,
+      "word": "ExxonMobil",
+      "start": 347,
+      "end": 357
+    },
+    {
+      "entity_group": "location",
+      "score": 0.6389542818069458,
+      "word": "city of Houston",
+      "start": 427,
+      "end": 442
+    },
+    {
+      "entity_group": "location",
+      "score": 0.9911323189735413,
+      "word": "Texas",
+      "start": 482,
+      "end": 487
+    }
+  ]
