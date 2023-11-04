@@ -1,5 +1,23 @@
 import re
 from collections import defaultdict
+import PyPDF2
+
+
+def augment_prompt(prompt,ref_doc):
+    aug_prompt = f"***{prompt}***+```{ref_doc}```"
+    return aug_prompt
+
+def extract_pdf_text(file):
+    """
+    Extracts text paragraphs from a PDF file.
+    """
+    pdf_reader = PyPDF2.PdfReader(file)
+    pdf_dict={}
+    for ip in range(len(pdf_reader.pages)):
+        pdf_dict[ip] = pdf_reader.pages[ip].extract_text()
+    dataset = [pdf_dict[ip] for ip in range(len(pdf_reader.pages))]
+    return pdf_dict,dataset
+
 
 # Sample regular expressions for detecting entities - these are simplistic
 # and can be replaced with more sophisticated entity recognition if needed.
