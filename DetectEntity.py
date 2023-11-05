@@ -43,7 +43,8 @@ class DetectEntity(object):
 
         for indx, val in enumerate(matches): 
             replacedVal = f"_Email_{indx}"
-            changedText = changedText.replace(val, replacedVal)
+            changedText = re.sub(r'\b{}\b'.format(replacedVal), val, text)
+            # changedText = changedText.replace(val, replacedVal)
             outData.append({"original": val, "replaced": replacedVal})
 
         self.replacedData["email"] = outData
@@ -74,7 +75,8 @@ class DetectEntity(object):
 
         for indx, val in enumerate(matches): 
             replacedVal = "0" * (10 - len(f'{indx}')) + f"{indx}"
-            changedText = changedText.replace(val, replacedVal)
+            changedText = re.sub(r'\b{}\b'.format(replacedVal), val, text)
+            # changedText = changedText.replace(val, replacedVal)
             outData.append({"original": val, "replaced": replacedVal})
 
         self.replacedData["number"] = outData
@@ -235,6 +237,12 @@ class DetectEntity(object):
 
         return self.entities
     
+    """
+    Replace the custom data
+    """
+    def ReplaceCustomData(self, oldText, newText)
+        self.text = re.sub(r'\b{}\b'.format(newText), oldText, self.Text)
+        return self.text
 
 if __name__ == "__main__":
 
