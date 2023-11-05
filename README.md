@@ -39,6 +39,7 @@ Contact us if you run into any issues!
 ## Known Limitations
 - 512 token limits on the Local LLM, limits size of uploaded.
 - Some cases of misclasified entities. (However all entities are anonymized)
+- This model uses GPT-3.5-turbo.
 
 
 ## Usage/Examples & Future development ideas
