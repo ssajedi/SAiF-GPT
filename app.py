@@ -1,17 +1,12 @@
 import streamlit as st
-import random
-import time
-from utils import anonymize_text, deanonymize_text, chatbot_response
-import openai
-
 import openai
 import streamlit as st
 from utils import extract_pdf_text
 from text_effects import highlight_phrases_in_paragraph
-from DetectEntity_r2 import Anonymizer
+from ner import Anonymizer
 
-st.set_page_config(page_title="🔒", page_icon="🤫",layout="wide")
-st.title("AInonymous")
+st.set_page_config(page_title="🔒 SAiF-GPT", page_icon="🤫",layout="wide")
+st.title("SAiF-GPT")
 
 
 system_prompt="""You are a helpful assistant, your task is to review an uploaded document\
@@ -30,6 +25,7 @@ if st.sidebar.button("Clear"):
     st.session_state.chat_hist = []
     st.session_state.messages = []
     st.session_state.anonymizer = None
+    st.session_state.ref_doc = None
     
 # add 
 # add a n upload pdf button to the sidebar
@@ -69,6 +65,7 @@ if prompt := st.chat_input("What is up?"):
         safe_prompt = anmz.anonymize(prompt,ent_types_select)
         safe_doc = anmz.anonymize(ref_doc,ent_types_select)
         st.session_state.anonymizer = anmz
+        st.session_state.ref_doc = ref_doc
         llm_prompt = f"***{safe_prompt}***+```{safe_doc}```"
         st.write(safe_prompt)
     else:
@@ -117,7 +114,7 @@ if prompt := st.chat_input("What is up?"):
 # Add a expander to show markdown full text
 if len(st.session_state.chat_hist)>0:
     with st.expander("Encrypted document"): 
-        highlight_ful_doc = highlight_phrases_in_paragraph(ref_doc,phrases_to_highlight)
+        highlight_ful_doc = highlight_phrases_in_paragraph(st.session_state.ref_doc,phrases_to_highlight)
         st.markdown(highlight_ful_doc, unsafe_allow_html=True)
 
 
