@@ -1,4 +1,5 @@
-![Logo](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/th5xamgrr6se0x5ro4g6.png)
+![Logo](https://github.com/ssajedi/SAiF-GPT/blob/main/Assets/Logo.png){:width="100px" height="100px"}
+
 
 # SAiF-GPT
 Project created for AECTech Hackathon 2023 @ New York.
@@ -25,19 +26,21 @@ Contact us if you run into any issues!
 ![image](https://github.com/ssajedi/SAiF-GPT/assets/132618087/999757ab-6ff6-4d5f-90a1-50bb9f3f57c0)
 ## Known Limitations
 - 4096 token limits on ChatGPT-3.5, limits the size of uploaded docs.
-- Missed or misclassifed entities are rare but not impossible. 
+- Missed or misclassified entities are rare but not impossible. 
 ## Usage/Examples & Future development ideas
 
 The following features can be integrated into the proposed framework for future development.
 - Retrieval Augmented Generation (RAG) for long pdfs
 - Compatibility with other LLM API's such as ([Claude](https://claude.ai/))
-- Better Named Entinty Recognition (NER) models
+- Better Named Entity Recognition (NER) models
 - Support for custom user-defined entities
 
 # ⚠️ Attention:
 This project was an outcome of a 24 hour hackathon. Please make sure to test the NER detections on sample of your data before deployment at scale.  
+
 ## Presentation
-You can access the [Presentation pdf here.](https://github.com/agusaboy)
+You can access the [Presentation pdf here.](https://github.com/ssajedi/SAiF-GPT/tree/main/Asset)
+
 ## Team
 - [Agustina Aboy](https://github.com/agusaboy)
 - [Alexis Kotzambasis](https://github.com/lexiko80-LPA) 
@@ -46,14 +49,14 @@ You can access the [Presentation pdf here.](https://github.com/agusaboy)
 - [Dan Miller](https://www.github.com/djmillerDeg)
 - Kodai Endo / ek819@outlook.com
 - [Omid Sajedi](https://github.com/ssajedi)
-- R Yamashita / intaro0626@gmail.com
+- Rintaro Yamashita / intaro0626@gmail.com
 - [Samuel Winson Tanuwidjaja](https://www.github.com/samuelwt)
 - [Sierra Davis](https://www.github.com/sierra-md)
-Proof we were here: 
-ADD PHOTOS HERE! 
+
+Proof we were [here](https://github.com/ssajedi/SAiF-GPT/tree/main/Assets/photos)
 ## Acknowledgements
 ✨ Special thanks to: 
-- Tamaho for helping on team comunication with translations.
-- Alexander Matthias Jacobson for his initial insight on the brainstorming and being the brave on to jump out of the boat.
+- Tamaho for helping with team communication with translations.
+- Alexander Matthias Jacobson for his initial insight on brainstorming and being the brave one to jump out of the boat.
 ## License
 [MIT](https://github.com/ssajedi/AInonymous/blob/main/LICENSE)
