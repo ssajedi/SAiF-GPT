@@ -6,21 +6,22 @@
 
 Project created for AECTech Hackathon 2023 @ New York.
 
-SAiF-GPT aims to provides a solution for using Chat GPT in a secure and compliant manner, even when dealing with sensitive information. 
-To ensure that corporate policies and NDAs are respected, the code and process automates entity detection and anonymization by replacing them with analogous values.
+SAiF-GPT aims to provide a solution for using Chat GPT in a secure and compliant manner, even when dealing with sensitive information. 
+To ensure that corporate policies and NDAs are respected, the code and process automate entity detection and anonymization by replacing them with analogous values.
 The end goal is to allow AEC industry to use AI technology like ChatGPT for document analysis while protecting confidential data.
 
-
 The workflow consists of:
--
+1. Text uploaded undergoes analysis by an NLP (Natural Language Processing) model to pinpoint names of individuals, locations, and email addresses.
+2. Detected entities within the text are substituted with generic placeholders prior to being uploaded to GPT.
+3. User prompts are similarly analyzed, and any discovered entities are replaced with placeholders before submission to GPT.
+4. Upon receiving the response from GPT, all generic placeholders are reverted to their original names before being displayed to the user.
 
 ## Known Limitations
-- 512 token limits on the Local LLM, limits size of uploaded.
-- Some cases of misclasified entities. (However all entities are anonymized)
+- Some cases of misclassified entities. (However, all entities are anonymized)
 
 
 ## Usage/Examples & Future development ideas
-edge cases
+The application could be extended to anonymize additional patterns.
 
 
 ## Presentation
@@ -47,7 +48,7 @@ ADD PHOTOS HERE!
 ## Acknowledgements
 
 ✨ Special thanks to: 
-- Tamaho for helping on team comunication with translations.
+- Tamaho for helping with team communication with translations.
 - Alexander Matthias Jacobson for his initial insight on the brainstorming and being the brave on to jump out of the boat.
 
 ## License
