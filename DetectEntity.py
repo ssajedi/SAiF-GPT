@@ -102,7 +102,7 @@ class DetectEntity(object):
                 self.replacedData[key].append({"original": entity, "replaced": repVal})
                 i += 1
 
-        with open(r'C:\Users\asharma\Desktop\hack\ChangedText.txt', 'w+') as outfile:
+        with open(r'data\ChangedText.txt', 'w+') as outfile:
              outfile.write(self.text)
         
     """
@@ -151,9 +151,9 @@ class DetectEntity(object):
         except Exception as e:
             print(f'Error: {e} in InfillDetected') 
 
-        with open(r'C:\Users\asharma\Desktop\hack\OriginalText.txt', 'w+') as outfile:
+        with open(r'data\OriginalText.txt', 'w+') as outfile:
             outfile.write(text)
-        with open(r'C:\Users\asharma\Desktop\hack\replacedText.txt', 'w+') as outfile:
+        with open(r'data\replacedText.txt', 'w+') as outfile:
             for key, val in self.replacedData.items():
                 outfile.write(f'{key}: {val}\n')
 
@@ -265,7 +265,7 @@ if __name__ == "__main__":
             # 123-456-7890
             # """
     
-    with open(r'C:\Users\asharma\Desktop\hack\test.txt', 'r') as infile:
+    with open(r'data\test.txt', 'r') as infile:
         test = infile.read()
     cls = DetectEntity(test)
     cls.Detect()
