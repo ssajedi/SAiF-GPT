@@ -46,6 +46,8 @@ Contact us if you run into any issues!
 
 ## Usage/Examples & Future development ideas
 The application could be extended to anonymize additional patterns.
+Look into image processing for anonymizing drawings.
+Look into connecting to other cloud LLM's
 
 
 ## Presentation
