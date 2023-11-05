@@ -10,6 +10,7 @@ from utils import extract_pdf_text
 from text_effects import highlight_phrases_in_paragraph
 from DetectEntity_r2 import Anonymizer
 
+st.set_page_config(page_title="🔒", page_icon="🤫",layout="wide")
 st.title("AInonymous")
 
 
@@ -22,13 +23,14 @@ A user might ask follow up questions.
 
 
 # add a selectbox to the sidebar
-ent_types_select = st.sidebar.multiselect("Entity list", ["LOC", "PER","ORG"], ["LOC", "PER","ORG"])
+ent_types_select = st.sidebar.multiselect("Entity list", ["LOC", "PER","ORG",'EMAIL','PHONE'], ["LOC", "PER","ORG"])
 
 # add a clear button to the sidebar
 if st.sidebar.button("Clear"):
     st.session_state.chat_hist = []
     st.session_state.messages = []
     st.session_state.anonymizer = None
+    
 # add 
 # add a n upload pdf button to the sidebar
 uploaded_file = st.sidebar.file_uploader("Choose a PDF file", accept_multiple_files=False)
@@ -111,4 +113,11 @@ if prompt := st.chat_input("What is up?"):
     st.markdown(highlighted_Text, unsafe_allow_html=True)
     st.session_state.messages.append({"role": "assistant", "content": full_response})
     st.session_state.chat_hist.append({'role':'assistant', 'content':highlighted_Text})
+
+# Add a expander to show markdown full text
+if len(st.session_state.chat_hist)>0:
+    with st.expander("Encrypted document"): 
+        highlight_ful_doc = highlight_phrases_in_paragraph(ref_doc,phrases_to_highlight)
+        st.markdown(highlight_ful_doc, unsafe_allow_html=True)
+
 

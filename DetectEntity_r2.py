@@ -10,7 +10,12 @@ class Anonymizer:
         self.entity_counters = {}
         self.anonymization_map = {}
         self.deanonymization_map = {}
-        self.phone_regex = re.compile(r'\b(?:\+?(\d{1,3}))?[-. (]*(\d{3})[-. )]*(\d{3})[-. ]*(\d{4})(?: *x(\d+))?\b')
+        self.phone_regex = re.compile(r"""
+    (\+?[\d\s-]{0,3})         # International prefix like +1 or 001
+    (\(?\d+\)?[\s-]?)         # Area code with optional parentheses and optional separator
+    (\d+[\s-]?){2,}           # The phone number itself with at least two groups of digits, separated by optional spaces or hyphens
+    (\s*(ext|x|ext.)\s*\d+)?  # Optional extension prefixed by 'ext', 'x', or 'ext.'
+    """, re.VERBOSE)
         self.email_regex = re.compile(r'[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}')
 
     def _split_text(self, text, chunk_size=60):
@@ -45,8 +50,8 @@ class Anonymizer:
 
     def _anonymize_chunk(self, chunk, entity_types):
         # Anonymize phone numbers and emails first
-        if 'PHONE-NUM' in entity_types:
-            chunk = self._anonymize_with_regex(chunk, self.phone_regex, 'PHONE-NUM')
+        if 'PHONE' in entity_types:
+            chunk = self._anonymize_with_regex(chunk, self.phone_regex, 'PHONE')
         if 'EMAIL' in entity_types:
             chunk = self._anonymize_with_regex(chunk, self.email_regex, 'EMAIL')
 
