@@ -1,4 +1,4 @@
-![Logo](https://github.com/ssajedi/SAiF-GPT/blob/main/Assets/Logo.png){:width="100px" height="100px"}
+<img src="https://github.com/ssajedi/SAiF-GPT/blob/main/Assets/Logo.png" width="200">
 
 
 # SAiF-GPT
