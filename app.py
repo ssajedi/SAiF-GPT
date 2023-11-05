@@ -98,6 +98,7 @@ if prompt := st.chat_input("What is up?"):
     decoded_message = st.session_state.anonymizer.deanonymize(full_response)
     phrases_to_highlight = {}
     ent_data = st.session_state.anonymizer.deanonymization_map
+    st.session_state.phrases_to_highlight = phrases_to_highlight
     # get values of diciotnary and save as list 
     ent_data = list(ent_data.values())
     for ent in ent_data:
