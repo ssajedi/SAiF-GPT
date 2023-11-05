@@ -34,6 +34,8 @@ Disclaimer: The difference between main2 and main are in the NER model, main2 us
 
 Contact us if you run into any issues!
 
+![image](https://github.com/ssajedi/SAiF-GPT/assets/132618087/999757ab-6ff6-4d5f-90a1-50bb9f3f57c0)
+
 ## Known Limitations
 - 512 token limits on the Local LLM, limits size of uploaded.
 - Some cases of misclasified entities. (However all entities are anonymized)
