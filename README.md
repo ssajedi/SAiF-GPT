@@ -39,7 +39,7 @@ Contact us if you run into any issues!
 ![image](https://github.com/ssajedi/SAiF-GPT/assets/132618087/999757ab-6ff6-4d5f-90a1-50bb9f3f57c0)
 
 ## Known Limitations
-- 512 token limits on the Local LLM, limits size of uploaded.
+- 4096 token limits on ChatGPT-3, limits size of uploaded docs.
 - Some cases of misclasified entities. (However all entities are anonymized)
 - This model uses GPT-3.5-turbo.
 
