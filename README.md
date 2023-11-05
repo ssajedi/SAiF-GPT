@@ -12,13 +12,16 @@ We are using [Streamlit](https://streamlit.io/) as the front-end of this applica
 pip install -r requirements.txt
 ```
 We recommend setting up a local environment using Anaconda to make sure these pip-installed dependencies don't interfere with your other python projects.
+
 2. Create a "hack_secret.txt" file within your local repository and paste your OpenAI API key into that file. This will allow you to call onto an api and actually have your encoded text processed by a large cloud based LLM. 
+
 3. Once "hack_secret.txt" is saved, you can run the streamlit webapp directly from your terminal using: 
 ```
 streamlit run app.py
 ```
 4. Streamlit should automatically open an instance of the webapp on your default browser. From there you can upload any PDF in your file browser, and ask questions about it like a traditional chatbot. The caveat, your confidential information will be "encrypted"
 Contact us if you run into any issues!
+
 ![image](https://github.com/ssajedi/SAiF-GPT/assets/132618087/999757ab-6ff6-4d5f-90a1-50bb9f3f57c0)
 ## Known Limitations
 - 4096 token limits on ChatGPT-3.5, limits the size of uploaded docs.
@@ -32,7 +35,7 @@ The following features can be integrated into the proposed framework for future 
 - Support for custom user-defined entities
 
 # ⚠️ Attention:
-This project was an outcome of a 24 hour hackathon. Please make sure to test the NER detections on smaple of your data before deployment at scale.  
+This project was an outcome of a 24 hour hackathon. Please make sure to test the NER detections on sample of your data before deployment at scale.  
 ## Presentation
 You can access the [Presentation pdf here.](https://github.com/agusaboy)
 ## Team
