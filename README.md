@@ -24,17 +24,13 @@ Contact us if you run into any issues!
 - 4096 token limits on ChatGPT-3.5, limits the size of uploaded docs.
 - Missed or misclassifed entities are rare but not impossible. 
 ## Usage/Examples & Future development ideas
-<<<<<<< HEAD
+
 The following features can be integrated into the proposed framework for future development.
 - Retrieval Augmented Generation (RAG) for long pdfs
 - Compatibility with other LLM API's such as ([Claude](https://claude.ai/))
 - Better Named Entinty Recognition (NER) models
-- Support for Custom user-defined entities
-=======
-- The application could be extended to anonymize additional patterns.
-- Look into image processing for anonymizing drawings.
-- Look into connecting to other cloud LLM's
->>>>>>> bb918a4424263520e4c491c4a1da568ff86e8c02
+- Support for custom user-defined entities
+
 # ⚠️ Attention:
 This project was an outcome of a 24 hour hackathon. Please make sure to test the NER detections on smaple of your data before deployment at scale.  
 ## Presentation
