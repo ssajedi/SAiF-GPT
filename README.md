@@ -39,7 +39,7 @@ The following features can be integrated into the proposed framework for future 
 This project was an outcome of a 24 hour hackathon. Please make sure to test the NER detections on sample of your data before deployment at scale.  
 
 ## Presentation
-You can access the [Presentation pdf here.](https://github.com/ssajedi/SAiF-GPT/tree/main/Asset)
+You can access the [Presentation pdf here.](https://github.com/ssajedi/SAiF-GPT/blob/main/Assets/Spec%20LLM.pdf)
 
 ## Team
 - [Agustina Aboy](https://github.com/agusaboy)
