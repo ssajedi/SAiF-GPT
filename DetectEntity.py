@@ -43,7 +43,7 @@ class DetectEntity(object):
 
         for indx, val in enumerate(matches): 
             replacedVal = f"_Email_{indx}"
-            changedText = re.sub(r'\b{}\b'.format(replacedVal), val, text)
+            changedText = re.sub(r'\b{}\b'.format(replacedVal), val, self.text)
             # changedText = changedText.replace(val, replacedVal)
             outData.append({"original": val, "replaced": replacedVal})
 
@@ -75,7 +75,7 @@ class DetectEntity(object):
 
         for indx, val in enumerate(matches): 
             replacedVal = "0" * (10 - len(f'{indx}')) + f"{indx}"
-            changedText = re.sub(r'\b{}\b'.format(replacedVal), val, text)
+            changedText = re.sub(r'\b{}\b'.format(replacedVal), val, self.text)
             # changedText = changedText.replace(val, replacedVal)
             outData.append({"original": val, "replaced": replacedVal})
 
