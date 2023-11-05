@@ -51,7 +51,7 @@ if "messages" not in st.session_state:
 
 for message in st.session_state.chat_hist:
     with st.chat_message(message["role"]):
-        st.markdown(message["content"])
+        st.markdown(message["content"], unsafe_allow_html=True)
 
 if prompt := st.chat_input("What is up?"):
     if len(st.session_state.chat_hist)==0:
@@ -109,8 +109,8 @@ if prompt := st.chat_input("What is up?"):
     highlighted_Text = highlight_phrases_in_paragraph(decoded_message,phrases_to_highlight)
     
     st.markdown("Decoded message:")
-    st.markdown(decoded_message)
+    # st.markdown(decoded_message)
     st.markdown(highlighted_Text, unsafe_allow_html=True)
     st.session_state.messages.append({"role": "assistant", "content": full_response})
-    st.session_state.chat_hist.append({'role':'assistant', 'content':decoded_message})
+    st.session_state.chat_hist.append({'role':'assistant', 'content':highlighted_Text})
 

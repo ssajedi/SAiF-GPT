@@ -48,7 +48,7 @@ def highlight_phrases_in_paragraph(paragraph, phrases_to_colors):
         pattern = r'\b' + escaped_phrase + r'\b'  # Use word boundaries
         replacement = (
             f'<span style="background-color: {color_code}; '
-            f'border-radius: 0.5em; padding: 0.3em 0.6em;">{phrase}</span>'
+            f'border-radius: 0.5em; padding: 0.3em 0.6em;">{phrase}🔒</span>'
         )
         paragraph = re.sub(pattern, replacement, paragraph, flags=re.IGNORECASE)
     
