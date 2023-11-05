@@ -240,7 +240,7 @@ class DetectEntity(object):
     """
     Replace the custom data
     """
-    def ReplaceCustomData(self, oldText, newText)
+    def ReplaceCustomData(self, oldText, newText):
         self.text = re.sub(r'\b{}\b'.format(newText), oldText, self.Text)
         return self.text
 
