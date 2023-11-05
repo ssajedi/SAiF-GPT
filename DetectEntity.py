@@ -15,7 +15,9 @@ class DetectEntity(object):
     tokenizer = AutoTokenizer.from_pretrained("mdarhri00/named-entity-recognition")
     model = AutoModelForTokenClassification.from_pretrained("mdarhri00/named-entity-recognition")
     usedWords = []
+    # Dictionary of all enities detected
     entities = {}
+    # Dictionary of all the replaced data
     replacedData = {}
 
     def __init__(self, text):
