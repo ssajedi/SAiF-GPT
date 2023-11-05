@@ -54,4 +54,3 @@ ADD PHOTOS HERE!
 - Alexander Matthias Jacobson for his initial insight on the brainstorming and being the brave on to jump out of the boat.
 ## License
 [MIT](https://github.com/ssajedi/AInonymous/blob/main/LICENSE)
-![image](https://github.com/ssajedi/SAiF-GPT/assets/84408706/51bc7387-1a32-4566-8227-5bd0d451d188)
