@@ -1,5 +1,6 @@
 # AInonymous
-AEC Tech hackathon
+AEC Tech hackath
+```mermaid
 sequenceDiagram
     participant UserInput
     participant Anonymizer
@@ -10,4 +11,4 @@ sequenceDiagram
     UserInput->>Anonymizer: Input
     Anonymizer->>GPT: Anonymized Data
     GPT->>Deanonymize: Processed Data
-    Deanonymize->>UserOutput: Output
+    Deanonymize->>UserOutput: Outputon
