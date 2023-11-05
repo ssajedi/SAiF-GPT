@@ -78,7 +78,7 @@ class DetectEntity(object):
             changedText = re.sub(r'\b{}\b'.format(replacedVal), val, self.text)
             # changedText = changedText.replace(val, replacedVal)
             outData.append({"original": val, "replaced": replacedVal})
-
+        print(outData)
         self.replacedData["number"] = outData
         self.text = changedText
         return changedText
