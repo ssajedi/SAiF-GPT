@@ -15,12 +15,17 @@ class DetectEntity(object):
     tokenizer = AutoTokenizer.from_pretrained("mdarhri00/named-entity-recognition")
     model = AutoModelForTokenClassification.from_pretrained("mdarhri00/named-entity-recognition")
     usedWords = []
+    # Dictionary of all enities detected
     entities = {}
+    # Dictionary of all the replaced data
     replacedData = {}
 
     def __init__(self, text):
         self.text = text
-    
+
+    """ 
+    Swaps the email information with a generic email address
+    """
     def RemoveEmail(self) -> str:
         
         changedText = deepcopy(self.text)
@@ -37,14 +42,18 @@ class DetectEntity(object):
         outData = []
 
         for indx, val in enumerate(matches): 
-            replacedVal = f"DummyEmail{indx}"
+            replacedVal = f"_Email_{indx}"
             changedText = changedText.replace(val, replacedVal)
             outData.append({"original": val, "replaced": replacedVal})
 
         self.replacedData["email"] = outData
 
+        self.text = changedText
         return changedText
 
+    """
+    Swaps the phone number with a generic phone number
+    """
     def RemovePhone(self) -> str:
 
         changedText = deepcopy(self.text)
@@ -69,9 +78,12 @@ class DetectEntity(object):
             outData.append({"original": val, "replaced": replacedVal})
 
         self.replacedData["number"] = outData
-
+        self.text = changedText
         return changedText
 
+    """
+    Swaps the detected entities with a generic entity name
+    """
     def RemoveDetected(self) -> str:
         
         for key, val in self.entities.items():
@@ -87,21 +99,78 @@ class DetectEntity(object):
                     repVal = 'OtherEntityName' + str(i)
 
                 self.text = self.text.replace(entity, repVal)
-                self.replacedData[key] = {"original": entity, "replaced": repVal}
+                self.replacedData[key].append({"original": entity, "replaced": repVal})
                 i += 1
-                
-        with open(r'C:\Users\asharma\Desktop\hack\test.txt', 'w+') as outfile:
-             outfile.write(self.text)
 
+        with open(r'data\ChangedText.txt', 'w+') as outfile:
+             outfile.write(self.text)
+        
+    """
+    Swaps the words in the user prompt
+    """
+    def UserPromptReplace(self, text) -> str:
+        try:
+            for key in self.replacedData.keys():
+                for val in self.replacedData[key]:
+                    if isinstance(val, dict): 
+                        newval = val['original']
+                        oldval = val['replaced']
+                        text = re.sub(r'\b{}\b'.format(newval), oldval, text)
+        except Exception as e:
+            print(f'Error: {e} in UserPromptReplace')
+        return text
+
+
+    """
+    Swaps the words in the reply to the user
+    """
+    def ReplyToUser(self, text) -> str:
+        try:
+            for key in self.replacedData.keys():
+                for val in self.replacedData[key]:
+                    if isinstance(val, dict): 
+                        newval = val['replaced']
+                        oldval = val['original']
+                        text = re.sub(r'\b{}\b'.format(newval), oldval, text)
+        except Exception as e:
+            print(f'Error: {e} in ReplyToUser')
+        return text
+
+    """
+    Get the original text
+    """
+    def InfillDetected(self, text) -> str:
+        
+        try:
+            for key in self.replacedData.keys():
+                for val in self.replacedData[key]:
+                    if isinstance(val, dict): 
+                        oldval = val['original']
+                        newval = val['replaced']
+                        text = re.sub(r'\b{}\b'.format(newval), oldval, text)
+        except Exception as e:
+            print(f'Error: {e} in InfillDetected') 
+
+        with open(r'data\OriginalText.txt', 'w+') as outfile:
+            outfile.write(text)
+        with open(r'data\replacedText.txt', 'w+') as outfile:
+            for key, val in self.replacedData.items():
+                outfile.write(f'{key}: {val}\n')
+
+        return text
+    
+    """
+    Detect using te HuggingFace pipeline
+    """
     def Detect(self) :
 
         # Clean data for the email 
-        text = self.RemoveEmail()
+        self.RemoveEmail()
         # Clean data for the phone number
-        text = self.RemovePhone()
+        self.RemovePhone()
 
         # Get the model's tokenizer
-        inputs = self.tokenizer(text, return_tensors="pt")
+        inputs = self.tokenizer(self.text, return_tensors="pt")
         outputs = self.model(**inputs)    
         # Get the predicted token label IDs as a list of integers
         predictions = outputs.logits.argmax(-1).tolist()[0]  # Convert to list and get first item
@@ -117,6 +186,9 @@ class DetectEntity(object):
         # Clean the data
         self.CleanData(self.CombineTokens(outData))        
 
+    """
+    Combine tokens to a list
+    """
     def CombineTokens(self, tokenized_list) -> list:
         combined_names = []
         current_name = ''
@@ -132,11 +204,15 @@ class DetectEntity(object):
             combined_names.append((current_name, token_type))
         return combined_names
 
+    """
+    Clean the data
+    """
     def CleanData(self, data: list) -> dict:
         
         uniqueKeys = set([val for key, val in data])
         for key in uniqueKeys:
             self.entities[key] = []
+            self.replacedData[key] = []
 
         # Pattern for the regex characters
         pattern = re.compile('[A-Za-z]')
@@ -159,40 +235,53 @@ class DetectEntity(object):
 
         return self.entities
     
-    def Random_word_from_library(self):
-
-        with open('Assets/names.csv', 'r') as f:
-            data = csv.reader(f)
-            names = [row[0] for row in data]
-            while True:
-                random_name = random.choice(names)
-                if random_name not in self.usedWords:
-                    break
-            self.usedWords.append(random_name)
-        return random_name
 
 if __name__ == "__main__":
 
-
-    test = """
-           ExxonMobil Infrastructure Development Proposal
-            Executive Summary:
-            This comprehensive proposal envisions the construction of ExxonMobil's new operational hub, designed to bolster its strategic expansion and operational excellence within the energy sector.
-            Introduction:
-            We propose to construct a state-of-the-art facility that reflects ExxonMobil's commitment to innovation, sustainability, and global leadership in energy. The project will span a meticulously selected 35,000-square-foot site in Houston, Texas, with the potential to become a landmark of industrial prowess and architectural ingenuity.
-            Project Team:
-            Leading the project will be Chief Project Engineer, Thomas Booker, with over two decades of experience in industrial construction. Architectural design will be spearheaded by Ava Clarke, whose portfolio includes several LEED-certified buildings across Dallas. Our environmental engineering efforts will be led by Dylan Rhodes in Austin, ensuring adherence to the most stringent ecological standards.
-            Site and Structure:
-            The facility will be located in the heart of Houston’s Energy Corridor, taking advantage of the area's rich infrastructure and proximity to ExxonMobil’s main operations. Geotechnical assessments and site preparation will be undertaken by San Antonio-based expert, Nora Quintana. The building's framework, designed for resilience and adaptability, will be overseen by structural engineer Alex Johnson from Fort Worth.
-            Sustainability and Environment:
-            Sustainability Coordinator, Rachel Santos from Corpus Christi, will implement cutting-edge green technologies, including a state-of-the-art HVAC system designed by El Paso's mechanical engineer, Omar Fernandez. Rainwater harvesting and waste management systems will be developed in collaboration with environmental specialists from Galveston 
-            test@gmail.com
-            123-456-7890
-            """
+    # test = """
+    #        ExxonMobil Infrastructure Development Proposal
+            # Executive Summary:
+            # This comprehensive proposal envisions the construction of ExxonMobil's new operational hub,
+            # designed to bolster its strategic expansion and operational excellence within the energy sector.
+            # Introduction:
+            # We propose to construct a state-of-the-art facility that reflects ExxonMobil's commitment to innovation,
+            # sustainability, and global leadership in energy. The project will span a meticulously selected 35,000-square-foot 
+            # site in Houston, Texas, with the potential to become a landmark of industrial prowess and architectural ingenuity.
+            # Project Team:
+            # Leading the project will be Chief Project Engineer, Thomas Booker, with over two decades of experience in industrial
+            # construction. Architectural design will be spearheaded by Ava Clarke, whose portfolio includes several LEED-certified
+            # buildings across Dallas. Our environmental engineering efforts will be led by Dylan Rhodes in Austin, ensuring adherence
+            # to the most stringent ecological standards.
+            # Site and Structure:
+            # The facility will be located in the heart of Houston’s Energy Corridor, taking advantage of the area's rich
+            # infrastructure and proximity to ExxonMobil’s main operations. Geotechnical assessments and site preparation will be
+            # undertaken by Houston-based expert, Nora Quintana. The building's framework, designed for resilience and adaptability, 
+            # will be overseen by structural engineer Alex Johnson from Fort Worth.
+            # Sustainability and Environment:
+            # Sustainability Coordinator, Rachel Santos from Corpus Christi, will implement cutting-edge green technologies, 
+            # including a state-of-the-art HVAC system designed by El Paso's mechanical engineer, Omar Fernandez. Rainwater
+            # harvesting and waste management systems will be developed in collaboration with environmental specialists from Galveston 
+            # test@gmail.com
+            # 123-456-7890
+            # """
     
-    test = "New York is a city"
-
+    with open(r'data\test.txt', 'r') as infile:
+        test = infile.read()
     cls = DetectEntity(test)
     cls.Detect()
     cls.RemoveDetected()
+    cls.InfillDetected(cls.text)
+
+    print(cls.UserPromptReplace("Who is Rachel Santos?"))
+    print(cls.ReplyToUser("""
+                        PersonName11 is designated as the Sustainability Coordinator for the proposed construction of OrganizationName1's 
+                          new operational hub. They are based in LocationName9, within the region of LocationName4 LocationName2.
+                          Their role involves implementing cutting-edge green technologies in the facility, including a 
+                          state-of-the-art HVAC system. This system is designed by the mechanical engineer, PersonName8, from
+                           OrganizationName2. PersonName11's responsibilities also include overseeing the development of rainwater
+                           harvesting and waste management systems, in collaboration with environmental specialists from
+                           OrganizationName3. This indicates that PersonName11 is likely to have a background in environmental
+                           engineering or sustainability practices, and is tasked with ensuring that the new facility meets high
+                           environmental standards and incorporates sustainable practices into its design and operation.
+"""))
     pass
